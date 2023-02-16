@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Text.Json.Serialization;
 
 // doc: https://github.com/gavilanch/CursoRESTfulAPIsASPNETCore/tree/master/ASP.NET%20Core%206/Modulo%2010%20-%20Despliegues/WebAPIAutores/WebAPIAutores
 
@@ -15,7 +17,7 @@ namespace WebApiTestOne
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             // data base conections
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
